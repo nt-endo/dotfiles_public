@@ -1,0 +1,39 @@
+# OS and editor noise
+.DS_Store
+*.swp
+*.swo
+*~
+*.bak
+*.bak.*
+
+# Local-only configuration and environment files
+*.local
+*.local.*
+!.example
+.env
+.env.*
+!.env.example
+zsh/.zshrc.local
+git/.gitconfig.local
+
+# Credentials and private keys
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+.ssh/
+.gnupg/
+.aws/
+.config/gh/
+**/auth.json
+**/credentials*
+**/secrets*
+
+# Tool caches and generated state
+.cache/
+.serena/
+.claude/
+.codex/
+node_modules/

@@ -1,0 +1,22 @@
+[core]
+    editor = nvim
+
+[color]
+    ui = auto
+
+[alias]
+    b = branch
+    co = checkout
+    ci = commit
+    st = status
+    ll = log --graph --all --decorate --oneline
+
+[push]
+    default = simple
+
+[checkout]
+    defaultRemote = origin
+
+# Personal identity, signing, and credential settings stay outside the repo.
+[include]
+    path = ~/.gitconfig.local
