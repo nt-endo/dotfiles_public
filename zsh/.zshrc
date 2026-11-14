@@ -1,19 +1,18 @@
-# Homebrew works on both Apple Silicon and Intel Macs.
-if command -v brew >/dev/null 2>&1; then
-  eval "$(brew shellenv)"
-fi
+# Native Zsh completion, including Git completion when `_git` is available.
+autoload -Uz compinit
+compinit
 
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME=""
-plugins=(git)
+# Show the current Git branch and staged/unstaged changes in the prompt.
+autoload -Uz vcs_info add-zsh-hook
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr '%F{green}+%f'
+zstyle ':vcs_info:git:*' unstagedstr '%F{red}*%f'
+zstyle ':vcs_info:git:*' formats ' %F{244}(%b%c%u)%f'
+add-zsh-hook precmd vcs_info
 
-if [ -r "$ZSH/oh-my-zsh.sh" ]; then
-  ZSH_THEME_GIT_PROMPT_PREFIX=" %F{244}("
-  ZSH_THEME_GIT_PROMPT_SUFFIX=")%f"
-  ZSH_THEME_GIT_PROMPT_DIRTY="%F{160}*%f"
-  ZSH_THEME_GIT_PROMPT_CLEAN=""
-  source "$ZSH/oh-my-zsh.sh"
-fi
+autoload -Uz colors && colors
+setopt prompt_subst
+PROMPT='%F{178}%n%f%F{186}@%f%F{187}%m%f %F{226}%1~%f${vcs_info_msg_0_} %F{185}%#%f '
 
 alias gitlog='git log --oneline --decorate --graph --color | less -R'
 alias gb='git branch'
@@ -25,11 +24,6 @@ alias gco='git checkout'
 alias gs='git status'
 alias gm='git merge'
 alias gf='git fetch'
-
-autoload -Uz colors && colors
-PROMPT='%F{178}%n%f%F{186}@%f%F{187}%m%f %F{226}%1~%f %F{224}$(git_prompt_info)%f %F{185}%#%f '
-
-export PATH="$HOME/.local/bin:$PATH"
 
 # Secrets and machine-specific settings belong here, never in this repository.
 [ -r "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
